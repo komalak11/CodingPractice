@@ -142,7 +142,145 @@ namespace Rextester
     }
     
 }
+   
+   //Normal merge sort
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+namespace Rextester
+{
+    
+    class Program{
+        
+        static void mergeSort(int[] arr, int l,int r){
             
+            if(l<r){
+                
+                int m = (l+(r-1))/2;
+                
+                mergeSort(arr,l,m);
+                
+                mergeSort(arr,m+1,r);
+                    
+                merge(arr,l,m,r);
+                    
+                }
+                
+            }
+           
+        
+        static void merge(int[] arr,int l, int m, int r){
+            
+            int i,j,k;
+            
+            int n1 = m-l+1;
+            
+            int n2 = r-m;
+            
+            //create temp array
+            
+            int[] left = new int[n1];
+            
+            int[] right = new int[n2];
+            
+            //copy the data to temp arrays
+            
+            for(i=0;i<n1;i++){
+                
+                left[i]=arr[l+i];
+            }
+            
+            for(j=0;j<n2;j++){
+                
+                right[j]=arr[m+1+j];
+                
+            }
+            
+            //merging the arrays
+            
+               i=0;
+            
+               j=0;
+            
+               k=l;
+            
+            while(i<n1&&j<n2){
+                
+                if(left[i]<=right[j]){
+                    
+                    arr[k] = left[i];
+                    i++;
+                        
+                }
+                
+                else{
+                    
+                    arr[k]=right[j];
+                    j++;
+                        
+                }
+                
+                
+               k++;
+                
+            }
+            
+            //copying the remaining elements into the array
+            
+            while(i<n1){
+                
+                arr[k] = left[i];
+                
+                i++;
+                k++;
+                
+            }
+            
+            while(j<n2){
+                
+                arr[k] = right[j];
+                
+                j++;
+                k++;
+                
+            }
+            
+        }
+        
+        //to print array
+        
+        static void printArr(int[] arr,int n){
+            
+            for(int i=0;i<arr.Length;i++){
+                
+                Console.WriteLine(arr[i]);
+                
+            }
+            
+        }
+        
+        //main function
+        
+        public static void Main(String[] args){
+            
+            //Read array
+            
+            int[] arr = {3,34,56,1,3,3,3,5,7,8};
+            
+            int n = arr.Length;
+            
+            mergeSort(arr,0,n);
+            
+            printArr(arr,n);
+            
+        }
+        
+    }
+    
+}
             
             
             
