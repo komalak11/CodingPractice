@@ -1,8 +1,3 @@
-# CodingPractice
-For practice purposes
-//Rextester.Program.Main is the entry point for your code. Don't change it.
-//Compiler version 4.0.30319.17929 for Microsoft (R) .NET Framework 4.5
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +8,7 @@ using System.Collections;
 namespace Rextester
 {
     
-    class sorting{
+    class Program{
         
         static void sort(int[] arr){
             
@@ -21,7 +16,7 @@ namespace Rextester
                 
                int minind=i;
                 
-                for(int j=0;j<arr.Length-1;j++){
+                for(int j=i+1;j<arr.Length;j++){
                 
                     if(arr[j]<arr[minind]){
                         
