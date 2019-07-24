@@ -25,7 +25,7 @@ public class StringDuplicate_HashMap {
 			}
 		}
 	
-		HashSet<Character> keys = new HashSet<Character>();
+		Set<Character> keys = baseMap.keySet();
 		
 		for(Character c:keys) {
 			
@@ -40,7 +40,7 @@ public class StringDuplicate_HashMap {
 		
 		StringDuplicate_HashMap sd = new StringDuplicate_HashMap();
 		
-		sd.findChar("AAAAAAAAAAAAAAAAAA");
+		sd.findChar("What is love");
 	}
 
 }
