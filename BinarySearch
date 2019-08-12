@@ -1,0 +1,28 @@
+package practice;
+
+public class BinarySearch {
+	//recursive approach
+	public static int binarySearch(int[] arr,int left,int right,int x) {
+		if(right>=1) {
+			int middle = left+(right-1)/2;
+		if(arr[middle] == x) {
+			return middle;
+		}
+		if(arr[middle]>x) {
+			return binarySearch(arr,left,middle-1,x);
+		}
+		else {
+			return binarySearch(arr,left,middle+1,x);
+		}
+	}
+		return -1;
+	}
+	
+	public static void main(String[] args) {
+		int arr[] = {10,10,10,10,20};
+		int x = 8;
+		BinarySearch BS = new BinarySearch();
+		int result = BS.binarySearch(arr, 0, arr.length-1, x);
+		System.out.println(result);
+	}
+}
