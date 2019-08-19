@@ -1,0 +1,41 @@
+package CTCI;
+
+public class RotateMatrix {
+	static int n = 4;
+	public static void rotate90DegreeMatrix(int[][] arr) {
+		for(int i=0;i<n/2;i++) {
+			int first = i;
+			int last = n-1-i;
+			for(int j=first;j<last;j++) {
+				//swap the elements in clockwise direction
+				/*int temp = arr[i][j];
+				arr[i][j] = arr[n-1-j][i];
+				arr[n-1-j][i] = arr[n-1-i][n-1-j];
+				arr[n-1-i][n-1-j] = arr[j][n-1-i];
+				arr[j][n-1-i] = temp;*/
+				int offset = j-first;
+				int top = arr[first][j];
+				arr[first][j] = arr[last-offset][first];
+				arr[last-offset][first] = arr[last][last-offset];
+				arr[last][last-offset] = arr[i][last];
+				arr[i][last] = top;
+				
+			}
+		}
+	}
+	public static void printArray(int[][] arr) {
+		for(int i=0;i<n;i++) {
+			for(int j=0;j<n;j++) {
+				System.out.print(arr[i][j]+",");
+			}
+			System.out.println();
+		}
+	}
+	public static void main(String[] args) {
+		int[][] arr = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+		printArray(arr);
+		rotate90DegreeMatrix(arr);
+		System.out.println("Output array is:");
+		printArray(arr);
+	}
+}
