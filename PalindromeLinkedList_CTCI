@@ -1,0 +1,98 @@
+package CTCI;
+
+public class PalindromLinkedList {
+	static Node head;
+	class Node{
+		int data;
+		Node next;
+		Node(int d){
+			data = d;
+			next = null;
+		}
+	}
+	public void push(int newData) {
+		Node newNode = new Node(newData);
+		newNode.next = head;
+		head = newNode;
+	}
+	public void printList(Node head) {
+		while(head!=null) {
+			System.out.print(head.data+" ");
+			head = head.next;
+		}
+		System.out.println();
+	}
+	public boolean isPalindrome(Node head) {
+		Node slowPointer = head;
+		Node fastPointer = head;
+		Node previousOfSlowPointer = head;
+		Node midNode = null; //to handle odd size of the list
+		boolean res = true;
+		if(head!=null&&head.next!=null) {
+			//to get the middle of the linked list
+			while(fastPointer!=null&&fastPointer.next!=null) {
+				fastPointer = fastPointer.next.next;
+				previousOfSlowPointer = slowPointer; // this is required for linked list with odd elements
+				slowPointer = slowPointer.next;
+			}
+			if(fastPointer!=null) {
+				midNode = slowPointer;
+				slowPointer = slowPointer.next;
+			}
+			//Reverse the second half and compare it with the first half
+			Node secondHalf = slowPointer;
+			previousOfSlowPointer.next = null;
+			reverse(secondHalf);
+			res = compareLists(head,secondHalf);
+			reverse(secondHalf);
+			if(midNode != null) {
+				//if there was a midnode which was not a part of first half or second half
+				previousOfSlowPointer.next = midNode;
+				midNode.next = secondHalf;
+			}
+			else {
+				previousOfSlowPointer.next = secondHalf;
+			}
+		}
+		return res;
+	}
+	public void reverse(Node secondHalf) {
+		Node prev = null;
+		Node current = secondHalf;
+		Node next;
+		while(current!=null) {
+			next = current.next;
+			current.next = prev;
+			prev = current;
+			current = next;
+		}
+		secondHalf = prev;
+	}
+	boolean compareLists(Node head1,Node head2) {
+		Node temp1 = head1;
+		Node temp2 = head2;
+		while(temp1!=null&&temp2!=null) {
+			if(temp1.data == temp2.data) {
+				temp1 = temp1.next;
+				temp2 = temp2.next;
+			}
+			else {
+				return false;
+			}
+		}
+		if(temp1 == null&&temp2 == null) {
+			return true;
+		}
+		return false;
+	}
+	public static void main(String[] args) {
+		PalindromLinkedList list = new PalindromLinkedList();
+		list.push(8);
+		list.push(9);
+		list.push(9);
+		list.push(8);
+		boolean result = list.isPalindrome(head);
+		System.out.println(result);
+		
+	}
+}
