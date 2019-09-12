@@ -1,0 +1,103 @@
+package CTCI;
+
+import java.util.LinkedList;
+
+public class AnimalShelter {
+	static class Animal{
+		String name;
+		long timeStamp;
+		public Animal(String n) {
+			name = n;
+			timeStamp = System.nanoTime();
+		}
+	}
+	static class Dog extends Animal{
+		public Dog(String n) {
+			super(n);
+		}
+		public String toString() {
+			return "Dog:" + name + ":" + timeStamp;
+		}
+	}
+	static class Cat extends Animal{
+		public Cat(String n) {
+			super(n);
+		}
+		public String toString() {
+			return "Cat:"+name+":"+timeStamp;
+		}
+	}
+	private LinkedList<Dog> dogs = new LinkedList<Dog>();
+	private LinkedList<Cat> cats = new LinkedList<Cat>();
+	public void enQueue(Animal a) {
+		if(a instanceof Dog) {
+			dogs.add((Dog) a);
+		}
+		else if(a instanceof Cat) {
+			cats.add((Cat) a);
+		}
+		else {
+			System.out.println("Unknown type");
+		}
+	}
+	public Dog deQueueDog() {
+		if(noDog()) {
+			throw new IllegalStateException("No Dogs!");
+		}
+		return dogs.removeFirst();
+	}
+	public Cat deQueueCat() {
+		if(noCat()) {
+			throw new IllegalStateException("No Cats!");
+		}
+		return cats.removeFirst();
+	}
+	public Animal deQueueAny() {
+		if(noAnimal()) {
+			throw new IllegalStateException("No Animals!");
+		}
+		else if(noDog()) {
+			return deQueueCat();
+		}
+		else if(noCat()) {
+			return deQueueDog();
+		}
+		else if(peekDog().timeStamp<peekCat().timeStamp) {
+			return deQueueDog();
+		}
+		else {
+			return deQueueCat();
+		}
+	}
+	public Dog peekDog() {
+		if(noDog()) {
+			throw new IllegalStateException("No Dogs!");
+		}
+		return dogs.getFirst();
+	}
+	public Cat peekCat() {
+		if(noCat()) {
+			throw new IllegalStateException("No Cats!");
+		}
+		return cats.getFirst();
+	}
+	public boolean noDog() {
+		return dogs.isEmpty(); 
+	}
+	public boolean noCat() {
+		return cats.isEmpty();
+	}
+	public boolean noAnimal() {
+		return noDog()&&noCat();
+	}
+	public static void main(String[] args) {
+		AnimalShelter shelter = new AnimalShelter();
+		shelter.enQueue(new Cat("tom"));
+		shelter.enQueue(new Cat("billy"));
+		shelter.enQueue(new Dog("dog1"));
+		System.out.println(shelter.deQueueCat());
+		shelter.enQueue(new Cat("gary"));
+		System.out.println(shelter.deQueueDog());
+	}
+	
+}
