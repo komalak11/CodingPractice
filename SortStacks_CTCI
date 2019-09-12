@@ -1,0 +1,45 @@
+package CTCI;
+
+import java.util.ListIterator;
+import java.util.Stack;
+
+public class SortStacks {
+	static void sortedInsert(Stack<Integer> s,int x) {
+		if(s.isEmpty()||x>s.peek()) {
+			s.push(x);
+			return;
+		}
+		int temp = s.pop();
+		sortedInsert(s,x);
+		s.push(temp);
+	}
+	static void sortStack(Stack<Integer> s) {
+		if(!s.isEmpty()) {
+			int x = s.pop();  //remove the top item
+			sortStack(s); //sort remaining stack
+			sortedInsert(s,x); //push the top item into the sorted stack
+		}
+	}
+	static void printStack(Stack<Integer> s) {
+		ListIterator<Integer> iterator = s.listIterator();
+		while(iterator.hasNext()) {
+			iterator.next();
+		}
+		while(iterator.hasPrevious()) {
+			System.out.print(iterator.previous()+" ");
+		}
+		System.out.println();
+	}
+	public static void main(String[] args) {
+		Stack<Integer> stack = new Stack<Integer>();
+		stack.push(69);
+		stack.push(1);
+		stack.push(100);
+		stack.push(4);
+		stack.push(0);
+		printStack(stack);
+		sortStack(stack);
+		System.out.println("Stack after sorting");
+		printStack(stack);
+	}
+}
