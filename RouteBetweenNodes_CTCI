@@ -1,0 +1,51 @@
+package CTCI;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.*;
+
+class DirectedGraphNode{
+	int label;
+	ArrayList<DirectedGraphNode> neighbors;
+	DirectedGraphNode(int x){
+		label = x;
+		neighbors = new ArrayList<>();
+	}
+}
+
+public class RouteBetweenNodes {
+	public boolean hasRoute(ArrayList<DirectedGraphNode> graph,DirectedGraphNode s,DirectedGraphNode t) {
+		if(s==t) {
+			return true;
+		}
+		Queue<DirectedGraphNode> queue = new LinkedList<>();
+		Set<DirectedGraphNode> visited = new HashSet<DirectedGraphNode>();
+		queue.offer(s);
+		visited.add(s);
+		while(!queue.isEmpty()) {
+			DirectedGraphNode current = queue.poll(); //Dequeue the first element
+			for(DirectedGraphNode neighbor : current.neighbors) {
+				if(neighbor == t) {
+					return true;
+				}
+				if(visited.contains(neighbor)) {
+					queue.offer(neighbor);
+					visited.add(neighbor);
+				}
+			}
+		}
+		return false;
+	}
+	
+	public static void main(String[] args) {
+		RouteBetweenNodes route = new RouteBetweenNodes();
+		DirectedGraphNode node10 = new DirectedGraphNode(10);
+		DirectedGraphNode node20 = new DirectedGraphNode(20);
+		DirectedGraphNode al = new DirectedGraphNode(5);
+		al.neighbors.add(0, node10 );
+		al.neighbors.add(1, node20 );
+
+	}
+
+}
